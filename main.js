@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/static'))
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT) || 3306,
-    database: process.env.DB_NAME || 'leisure',
+    database: process.env.DB_NAME || 'leisure_kboard',
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT) || 4,
@@ -22,8 +22,8 @@ const pool = mysql.createPool({
 })
 
 //SQL
-const SQL_LIST_TV_DESC = 'SELECT name, tvid FROM leisure.tv_shows ORDER BY name DESC limit ?'
-const SQL_TV_DETAIL = 'SELECT * FROM leisure.tv_shows WHERE tvid = ?'
+const SQL_LIST_TV_DESC = 'SELECT name, tvid FROM leisure_kboard.tv_shows ORDER BY name DESC limit ?'
+const SQL_TV_DETAIL = 'SELECT * FROM leisure_kboard.tv_shows WHERE tvid = ?'
 
 app.get('/', (req,res)=> {
     res.status(200)
@@ -87,6 +87,7 @@ pool.getConnection()
     })
         .then(results => {
             const conn = results[0]
+            console.log(conn)
             conn.release()
             app.listen(PORT, ()=> {
                 console.log(`${PORT} started`)
