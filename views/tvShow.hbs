@@ -1,0 +1,17 @@
+{{#if hasRecord}}
+<table>
+    {{#each record}}
+    <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.rating}}</td>
+        <td><img src="{{this.image}}" alt="img"></td>
+        <td>{{this.summary}}</td>
+        <td><a href="{{this.official_site}}">Link to Site</a></td>
+
+    </tr>
+    {{/each}}
+</table>
+{{/if}}
+<form action="/list" method="GET">
+    <button type="submit">Back</button>
+</form>

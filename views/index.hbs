@@ -1,0 +1,11 @@
+<h1>TV shows list</h1>
+
+{{#if hasRecords}}
+    <table>
+        {{#each records}}
+        <tr>
+            <td><a href="/list/{{this.tvid}}">{{this.name}}</a></td>
+        </tr>
+        {{/each}}
+    </table>
+{{/if}}
