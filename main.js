@@ -22,7 +22,7 @@ const pool = mysql.createPool({
 })
 
 //SQL
-const SQL_LIST_TV_DESC = 'SELECT * FROM leisure.tv_shows ORDER BY name DESC limit ?'
+const SQL_LIST_TV_DESC = 'SELECT name, tvid FROM leisure.tv_shows ORDER BY name DESC limit ?'
 const SQL_TV_DETAIL = 'SELECT * FROM leisure.tv_shows WHERE tvid = ?'
 
 app.get('/', (req,res)=> {
@@ -33,7 +33,7 @@ app.get('/', (req,res)=> {
 app.get('/list', async(req, res)=> {
     const conn = await pool.getConnection()
     try{
-        const result = await conn.query(SQL_LIST_TV_DESC, [10])
+        const result = await conn.query(SQL_LIST_TV_DESC, [20])
         const records = result[0]
         console.log(records)
         res.status(200)
@@ -59,7 +59,8 @@ app.get('/list/:id', async(req,res)=> {
     try{
         const result = await conn.query(SQL_TV_DETAIL, [tvId])
         const record = result[0]
-        console.log(record)
+      
+
         res.status(200)
         res.type('text/html')
         res.render('tvShow', {

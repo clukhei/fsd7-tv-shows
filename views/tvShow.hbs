@@ -1,17 +1,22 @@
 {{#if hasRecord}}
-<table>
-    {{#each record}}
-    <tr>
-        <td>{{this.name}}</td>
-        <td>{{this.rating}}</td>
-        <td><img src="{{this.image}}" alt="img"></td>
-        <td>{{this.summary}}</td>
-        <td><a href="{{this.official_site}}">Link to Site</a></td>
 
-    </tr>
-    {{/each}}
-</table>
+{{#each record}}
+<div class="d-flex mt-5">
+    <img src="{{this.image}}" alt="img" class="image">
+    <div class="description">
+        <div>
+        <h1>{{this.name}}</h1>
+        {{{this.summary}}}
+        <code>{{this.ratings}}</code>
+        </div>
+        <div class="d-flex justify-content-between">
+        <button class="btn-primary btn" href="{{this.official_site}}">Link to Site</Button>
+        <form action="/list" method="GET">
+            <button class="btn-primary btn" type="submit">Back</button>
+        </form>
+        </div>
+    </div>
+</div>
+{{/each}}
+
 {{/if}}
-<form action="/list" method="GET">
-    <button type="submit">Back</button>
-</form>
