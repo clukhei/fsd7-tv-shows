@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/static'))
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT) || 3306,
-    database: process.env.DB_NAME || 'leisure_kboard',
+    database: process.env.DB_NAME || 'leisure',
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT) || 4,
@@ -22,20 +22,16 @@ const pool = mysql.createPool({
 })
 
 //SQL
-const SQL_LIST_TV_DESC = 'SELECT name, tvid FROM leisure_kboard.tv_shows ORDER BY name DESC limit ?'
-const SQL_TV_DETAIL = 'SELECT * FROM leisure_kboard.tv_shows WHERE tvid = ?'
+const SQL_LIST_TV_DESC = 'SELECT name, tvid,image FROM leisure.tv_shows ORDER BY name DESC limit ?'
+const SQL_TV_DETAIL = 'SELECT * FROM leisure.tv_shows WHERE tvid = ?'
 
-app.get('/', (req,res)=> {
-    res.status(200)
-    res.type('text/html')
-    res.render('index')
-})
-app.get('/list', async(req, res)=> {
+
+app.get('/', async(req, res)=> {
     const conn = await pool.getConnection()
     try{
         const result = await conn.query(SQL_LIST_TV_DESC, [20])
         const records = result[0]
-        console.log(records)
+   
         res.status(200)
         res.type('text/html')
         res.render('index', {
@@ -58,14 +54,15 @@ app.get('/list/:id', async(req,res)=> {
     console.log(tvId)
     try{
         const result = await conn.query(SQL_TV_DETAIL, [tvId])
-        const record = result[0]
-      
-
+        const record = result[0][0]
+        console.log(record.official_site)
+        console.log(record)
         res.status(200)
         res.type('text/html')
         res.render('tvShow', {
             hasRecord: record.length> 0,
-            record
+            record,
+            hasLink: !!record.official_site
         })
     
     }catch (e) {
@@ -77,7 +74,9 @@ app.get('/list/:id', async(req,res)=> {
     }
 })
 
-
+app.use((req,res)=> {
+    res.redirect('/')
+})
 pool.getConnection()
     .then(conn => {
         console.log("pinging database")

@@ -1,13 +1,25 @@
-<h1>TV shows list</h1>
+
 
 {{#if hasRecords}}
-    <table class="table">  
-        <tbody>
-        {{#each records}}
-        <tr>
-            <td><a href="/list/{{this.tvid}}">{{this.name}}</a></td>
-        </tr>
-        {{/each}}
-        </tbody>
-    </table>
+
+    <div class="container">
+        <h1 class ="mt-5">TV shows list</h1>
+        <div class="row">
+             {{#each records}}
+            <div class="col-sm-3 mt-5">
+                <a href="/list/{{this.tvid}}"><img src="{{this.image}}" alt="image"></a>
+                <form>
+                <button class="btn btn-warning mt-3" type="submit" formaction="/list/{{this.tvid}}">See Details</button>
+                </form>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    {{else}} 
+        <div class="container">
+            <h1>Uh Oh..</h1>
+        </div>
+
+
 {{/if}}
