@@ -81,9 +81,9 @@ app.use((req, res) => {
 	res.redirect("/");
 });
 
-console.info(`config: ${DB_HOST}`);
-console.info(`user: ${DB_USER}`);
-console.info(`database: ${DB_NAME}`);
+console.info(`config: ${process.env.DB_HOST}`);
+console.info(`user: ${process.env.DB_USER}`);
+console.info(`database: ${proces.env.DB_NAME}`);
 
 pool.getConnection()
 	.then((conn) => {
