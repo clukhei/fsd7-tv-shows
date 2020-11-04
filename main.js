@@ -23,7 +23,7 @@ const pool = mysql.createPool({
 
 //SQL
 const SQL_LIST_TV_DESC =
-	"SELECT name, tvid,image FROM leisure_kboard.tv_shows ORDER BY name DESC limit ?";
+	"SELECT name, tvid,image FROM mysqldb2020.tv_shows ORDER BY name DESC limit ?";
 const listRouter = require("./list")(pool);
 app.use("/list", listRouter);
 
