@@ -2,7 +2,7 @@ const express = require("express");
 const hbs = require("express-handlebars");
 const mysql = require("mysql2/promise");
 const dotenv = require("dotenv");
-//dotenv.config();
+dotenv.config();
 
 const PORT = parseInt(process.argv[2]) || parseInt(process.env.PORT) || 3000;
 const app = express();
