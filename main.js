@@ -2,7 +2,7 @@ const express = require("express");
 const hbs = require("express-handlebars");
 const mysql = require("mysql2/promise");
 const dotenv = require("dotenv");
-dotenv.config();
+//dotenv.config();
 
 const PORT = parseInt(process.argv[2]) || parseInt(process.env.PORT) || 3000;
 const app = express();
@@ -24,13 +24,13 @@ const pool = mysql.createPool({
 //SQL
 const SQL_LIST_TV_DESC =
 	"SELECT name, tvid,image FROM leisure_kboard.tv_shows ORDER BY name DESC limit ?";
-const listRouter = require('./list')(pool)
-app.use('/list', listRouter)
+const listRouter = require("./list")(pool);
+app.use("/list", listRouter);
 
 app.get("/", async (req, res) => {
 	pool.getConnection()
 		.then((conn) => {
-			const p0 =  conn //Promise.resolve(conn);
+			const p0 = conn; //Promise.resolve(conn);
 			const p1 = conn.query(SQL_LIST_TV_DESC, [20]);
 			return Promise.all([p0, p1]);
 		})
@@ -41,9 +41,9 @@ app.get("/", async (req, res) => {
 			res.render("index", {
 				records,
 				hasRecords: records.length > 0,
-            });
-            console.log(result[0])
-           /*  console.log(Promise.resolve(result[0])) */
+			});
+			console.log(result[0]);
+			/*  console.log(Promise.resolve(result[0])) */
 			return result[0];
 		})
 		.catch((error) => {
@@ -76,7 +76,6 @@ app.get("/", async (req, res) => {
         conn.release()
     } */
 });
-
 
 app.use((req, res) => {
 	res.redirect("/");
