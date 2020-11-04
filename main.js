@@ -83,7 +83,7 @@ app.use((req, res) => {
 
 console.info(`config: ${process.env.DB_HOST}`);
 console.info(`user: ${process.env.DB_USER}`);
-console.info(`database: ${proces.env.DB_NAME}`);
+console.info(`database: ${process.env.DB_NAME}`);
 
 pool.getConnection()
 	.then((conn) => {
