@@ -80,6 +80,11 @@ app.get("/", async (req, res) => {
 app.use((req, res) => {
 	res.redirect("/");
 });
+
+console.info(`config: ${DB_HOST}`);
+console.info(`user: ${DB_USER}`);
+console.info(`database: ${DB_NAME}`);
+
 pool.getConnection()
 	.then((conn) => {
 		console.log("pinging database");
