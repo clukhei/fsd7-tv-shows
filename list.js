@@ -1,5 +1,5 @@
 const express = require("express");
-const SQL_TV_DETAIL = "SELECT * FROM mysqldb2020.tv_shows WHERE tvid = ?";
+const SQL_TV_DETAIL = "SELECT * FROM leisure_kboard.tv_shows WHERE tvid = ?";
 
 module.exports = function (pool) {
 	const router = express.Router();
