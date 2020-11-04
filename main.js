@@ -81,9 +81,6 @@ app.use((req, res) => {
 	res.redirect("/");
 });
 
-console.info(`config: ${process.env.DB_HOST}`);
-console.info(`user: ${process.env.DB_USER}`);
-console.info(`database: ${process.env.DB_NAME}`);
 
 pool.getConnection()
 	.then((conn) => {
@@ -94,7 +91,6 @@ pool.getConnection()
 	})
 	.then((results) => {
 		const conn = results[0];
-		console.log(conn);
 		conn.release();
 		app.listen(PORT, () => {
 			console.log(`${PORT} started`);
